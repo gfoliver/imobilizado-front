@@ -1,19 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiBox, FiLayers, FiDollarSign, FiUsers } from "react-icons/fi";
+import { FiBox, FiLayers, FiMapPin, FiUsers } from "react-icons/fi";
 
 import { Container, Nav } from './styles';
+import { useAuth } from '../../context/Auth';
 
 const Sidebar: React.FC = () => {
+    const { user } = useAuth();
+
     return (
         <Container>
             <Nav>
-                <li>
-                    <Link to="/usuarios">
-                        <FiUsers />
-                        Usuarios
-                    </Link>
-                </li>
+                { user.type === "admin" && (
+                    <li>
+                        <Link to="/usuarios">
+                            <FiUsers />
+                            Usuarios
+                        </Link>
+                    </li>
+                ) }
                 <li>
                     <Link to="/imobilizados">
                         <FiBox />
@@ -27,9 +32,9 @@ const Sidebar: React.FC = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/patrimonio">
-                        <FiDollarSign />
-                        Patrimônio
+                    <Link to="/unidades">
+                        <FiMapPin />
+                        Unidades
                     </Link>
                 </li>
             </Nav>

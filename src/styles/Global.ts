@@ -44,6 +44,27 @@ export default createGlobalStyle`
         min-height: calc(100vh - 78px);
         display: grid;
         grid-template-columns: 240px 1fr;
+
+        .content {
+            padding: 40px;
+
+            > h1 {
+                font-weight: normal;
+                color: ${props => props.theme.colors.textLight};
+                font-size: 32px;
+                margin-bottom: 1em;
+
+                b {
+                    font-weight: 500;
+                    color: ${props => props.theme.colors.text};
+                }
+            }
+        }
+    }
+
+    .MuiPopover-paper {
+        background: ${props => props.theme.colors.cards} !important;
+        color: ${props => props.theme.colors.text} !important;
     }
 `;
 

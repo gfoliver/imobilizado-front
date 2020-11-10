@@ -6,12 +6,14 @@ import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Register from '../pages/Register';
 import Logout from '../components/Logout';
+import UsersList from '../pages/Users/List';
 
 const Router: React.FC = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact isPrivate component={Home}></Route>
+                <Route path="/" exact isPrivate component={Home} />
+                <Route path="/usuarios" isPrivate component={UsersList} />
 
                 <Route path="/login" component={Login} />
                 <Route path="/cadastro" component={Register} />
