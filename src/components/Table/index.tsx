@@ -29,7 +29,7 @@ const Table: React.FC<MaterialTableProps<any>> = ({...props}) => {
         <Container>
             <MaterialTable 
                 icons={tableIcons as Icons} 
-                options={{ draggable: false }} 
+                options={{ draggable: false, pageSizeOptions: [7,15,30,50,100], pageSize: 7 }} 
                 components={{
                     Toolbar: () => <div />
                 }} 

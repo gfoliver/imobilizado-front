@@ -38,6 +38,10 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
 
+        button {
+            margin-right: 32px;
+        }
+
         svg {
             stroke: ${props => props.theme.colors.text};
             width: 24px;

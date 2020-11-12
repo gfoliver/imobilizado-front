@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
 
 export default createGlobalStyle`
     * {
@@ -41,12 +41,15 @@ export default createGlobalStyle`
     }
 
     main {
-        min-height: calc(100vh - 78px);
+        min-height: calc(100vh - 84px);
         display: grid;
         grid-template-columns: 240px 1fr;
 
         .content {
             padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
 
             > h1 {
                 font-weight: normal;
@@ -65,6 +68,51 @@ export default createGlobalStyle`
     .MuiPopover-paper {
         background: ${props => props.theme.colors.cards} !important;
         color: ${props => props.theme.colors.text} !important;
+    }
+
+    form {
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 24px;
+            align-items: flex-end;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+    }
+
+    .radio-wrapper {
+        display: flex;
+
+        input {
+            display: none;
+        }
+
+        label {
+            margin: 0;
+            width: 100%;
+            padding: 16px 24px;
+            background-color: rgba(255,255,255, .02);
+            transition: all .3s ease;
+            color: rgba(255,255,255, .5);
+            font-size: 16px;
+            text-align: center;
+            
+            &:first-of-type {
+                border-radius: 4px 0px 0px 4px;
+            }
+            &:last-of-type {
+                border-radius: 0px 4px 4px 0px;
+            }
+        }
+
+        input:checked + label {
+            background-color: #4F4F4F;
+            color: #fff;
+        }
     }
 `;
 
@@ -85,4 +133,19 @@ export const Loader = styled.div`
             transform: rotate(360deg);
         }
     }
+`;
+
+interface CardProps {
+    flex?: boolean;
+}
+
+export const Card = styled.div<CardProps>`
+    padding: 32px;
+    border-radius: 4px;
+    border: 1px solid ${props => props.theme.colors.cardBorder};
+    background: ${props => props.theme.colors.cards};
+
+    ${props => props.flex && css`
+        flex: 1;
+    `};
 `;

@@ -17,7 +17,7 @@ const UsersList: React.FC = () => {
         <>
             <Header />
             <main>
-                <Sidebar />
+                <Sidebar activeTab="users" />
                 <div className="content">
                     <h1>
                         <b>Usuários</b> - Listagem

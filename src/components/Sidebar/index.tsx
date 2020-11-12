@@ -1,42 +1,110 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FiBox, FiLayers, FiMapPin, FiUsers } from "react-icons/fi";
 
-import { Container, Nav } from './styles';
+import { Container, Nav, SidebarItem } from './styles';
 import { useAuth } from '../../context/Auth';
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+    activeTab?: "users" | "products" | "areas" | "unities";
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ activeTab }) => {
     const { user } = useAuth();
+    const location = useLocation();
 
     return (
         <Container>
             <Nav>
                 { user.type === "admin" && (
-                    <li>
-                        <Link to="/usuarios">
-                            <FiUsers />
-                            Usuarios
-                        </Link>
-                    </li>
+                    <>
+                        <SidebarItem active={activeTab === "users"}>
+                            <Link to="/usuarios">
+                                <FiUsers />
+                                Usuarios
+                            </Link>
+                        </SidebarItem>
+                        {activeTab && activeTab === "users" && (
+                            <ul>
+                                <li>
+                                    <Link to="/usuarios" className={location.pathname === "/usuarios" ? 'active' : ''}>
+                                        Listagem
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/usuarios/salvar" className={location.pathname === "/usuarios/salvar" ? 'active' : ''}>
+                                        Adicionar Novo
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/usuarios/aprovar" className={location.pathname === "/usuarios/aprovar" ? 'active' : ''}>
+                                        Aprovações Pendentes
+                                    </Link>
+                                </li>
+                            </ul>
+                        )}
+                    </>
                 ) }
-                <li>
+                <SidebarItem active={activeTab === "products"}>
                     <Link to="/imobilizados">
                         <FiBox />
                         Imobilizados
                     </Link>
-                </li>
-                <li>
+                </SidebarItem>
+                {activeTab && activeTab === "products" && (
+                    <ul>
+                        <li>
+                            <Link to="/imobilizados" className={location.pathname === "/imobilizados" ? 'active' : ''}>
+                                Listagem
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/imobilizados/adicionar" className={location.pathname === "/imobilizados/adicionar" ? 'active' : ''}>
+                                Adicionar Novo
+                            </Link>
+                        </li>
+                    </ul>
+                )}
+                <SidebarItem active={activeTab === "areas"}>
                     <Link to="/areas">
                         <FiLayers />
                         Areas
                     </Link>
-                </li>
-                <li>
+                </SidebarItem>
+                {activeTab && activeTab === "areas" && (
+                    <ul>
+                        <li>
+                            <Link to="/areas" className={location.pathname === "/areas" ? 'active' : ''}>
+                                Listagem
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/areas/adicionar" className={location.pathname === "/areas/adicionar" ? 'active' : ''}>
+                                Adicionar Nova
+                            </Link>
+                        </li>
+                    </ul>
+                )}
+                <SidebarItem active={activeTab === "unities"}>
                     <Link to="/unidades">
                         <FiMapPin />
                         Unidades
                     </Link>
-                </li>
+                </SidebarItem>
+                {activeTab && activeTab === "unities" && (
+                    <ul>
+                        <li>
+                            <Link to="/unidades" className={location.pathname === "/unidades" ? 'active' : ''}>
+                                Listagem
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/unidades/adicionar" className={location.pathname === "/unidades/adicionar" ? 'active' : ''}>
+                                Adicionar Nova
+                            </Link>
+                        </li>
+                    </ul>
+                )}
             </Nav>
         </Container>
     );

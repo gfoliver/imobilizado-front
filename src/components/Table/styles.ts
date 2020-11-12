@@ -1,11 +1,24 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    flex: 1;
+
     .MuiPaper-root {
         background: ${props => props.theme.colors.cards};
         border: 1px solid ${props => props.theme.colors.cardBorder};
         color: ${props => props.theme.colors.text};
         border-radius: 4px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .MuiTableBody-root {
+            height: 100%;
+        }
+
+        .Component-horizontalScrollContainer-5 {
+            flex: 1;
+        }
 
         .MuiTableCell-head {
             background: rgba(0,0,0,0.15);

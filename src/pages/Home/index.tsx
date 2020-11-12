@@ -10,7 +10,7 @@ const Home: React.FC = () => {
             <main>
                 <Sidebar />
                 <div className="content">
-                    <h2>Sistema de Invetário de Imobilizado.</h2>
+                    <h2>Sistema de Inventário de Imobilizado.</h2>
                 </div>
             </main>
         </>

@@ -11,6 +11,7 @@ declare module 'styled-components' {
             inputBorder: string;
             primary: string;
             secondary: string;
+            cardLighter: string;
         }
     }
 }

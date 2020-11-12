@@ -16,6 +16,7 @@
     "axios": "^0.21.0",
     "material-table": "^1.69.1",
     "polished": "^4.0.3",
+    "qs": "^6.9.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^3.11.0",
@@ -52,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@types/qs": "^6.9.5",
     "@types/react-router-dom": "^5.1.6",
     "@types/react-toast-notifications": "^2.4.0",
     "@types/styled-components": "^5.1.4",

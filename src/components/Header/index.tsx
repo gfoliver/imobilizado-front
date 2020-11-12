@@ -5,6 +5,7 @@ import { FiUser, FiLogOut } from 'react-icons/fi';
 import { useAuth } from '../../context/Auth';
 
 import { Container } from './styles';
+import SmallButton from '../SmallButton';
 
 const Header: React.FC = () => {
     const { user } = useAuth();
@@ -14,6 +15,7 @@ const Header: React.FC = () => {
             <div className="logo">imobilizado</div>
             {user ? (
                 <div className="user">
+                    <SmallButton>Realizar Inventário</SmallButton>
                     <FiUser />
                     <div className="name">{user.name}</div>
                     <Link to="/sair">
