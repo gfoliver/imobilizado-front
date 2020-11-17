@@ -13,6 +13,8 @@ export const Container = styled.div`
         font-size: 24px;
         font-weight: bold;
         font-family: 'Roboto Condensed';
+        color: ${props => props.theme.colors.text};
+        text-decoration: none;
     }
 
     nav {

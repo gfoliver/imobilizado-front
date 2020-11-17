@@ -12,7 +12,7 @@ const Header: React.FC = () => {
 
     return (
         <Container>
-            <div className="logo">imobilizado</div>
+            <Link to="/" className="logo">imobilizado</Link>
             {user ? (
                 <div className="user">
                     <SmallButton>Realizar Inventário</SmallButton>

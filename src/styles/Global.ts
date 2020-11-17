@@ -14,7 +14,7 @@ export default createGlobalStyle`
         background: ${props => props.theme.colors.background};
         color: ${props => props.theme.colors.text};
 
-        input, button {
+        input, button, textarea {
             font-family: 'Roboto', sans-serif;
             color: ${props => props.theme.colors.text};
 
@@ -71,6 +71,10 @@ export default createGlobalStyle`
     }
 
     form {
+        >.item {
+            margin-bottom: 24px;
+        }
+
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -100,6 +104,7 @@ export default createGlobalStyle`
             color: rgba(255,255,255, .5);
             font-size: 16px;
             text-align: center;
+            cursor: pointer;
             
             &:first-of-type {
                 border-radius: 4px 0px 0px 4px;

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Redirect } from 'react-router-dom';
 import { parse } from 'qs';
 
 import Header from '../../../components/Header';
@@ -8,11 +8,13 @@ import { Card } from '../../../styles/Global';
 import { Form } from '@unform/web';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
+import { useAuth } from '../../../context/Auth';
 
 const UsersForm: React.FC = () => {
     const location = useLocation();
     const [edit, setEdit] = useState(false);
     const [id, setId] = useState<string | null>(null);
+    const { user } = useAuth();
 
     useEffect(() => {
         const query = parse(location.search.split('?')[1]);
@@ -25,6 +27,9 @@ const UsersForm: React.FC = () => {
     const handleSubmit = useCallback(data => {
         console.log(data);
     }, []);
+
+    if (user.type !== "admin")
+        return <Redirect to="/" />
 
     return (
         <>

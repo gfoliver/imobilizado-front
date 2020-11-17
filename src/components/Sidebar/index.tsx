@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab }) => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/imobilizados/adicionar" className={location.pathname === "/imobilizados/adicionar" ? 'active' : ''}>
+                            <Link to="/imobilizados/salvar" className={location.pathname === "/imobilizados/salvar" ? 'active' : ''}>
                                 Adicionar Novo
                             </Link>
                         </li>
@@ -79,7 +79,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab }) => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/areas/adicionar" className={location.pathname === "/areas/adicionar" ? 'active' : ''}>
+                            <Link to="/areas/salvar" className={location.pathname === "/areas/salvar" ? 'active' : ''}>
                                 Adicionar Nova
                             </Link>
                         </li>
@@ -99,7 +99,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab }) => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/unidades/adicionar" className={location.pathname === "/unidades/adicionar" ? 'active' : ''}>
+                            <Link to="/unidades/salvar" className={location.pathname === "/unidades/salvar" ? 'active' : ''}>
                                 Adicionar Nova
                             </Link>
                         </li>

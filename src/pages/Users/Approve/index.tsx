@@ -9,17 +9,12 @@ import { useAuth } from '../../../context/Auth';
 
 // import {  } from './styles';
 
-interface IUserListItem extends Object {
-    type: string;
-    active: boolean;
-}
-
-const UsersList: React.FC = () => {
+const ApproveUsers: React.FC = () => {
     const { user } = useAuth();
 
     if (user.type !== "admin")
         return <Redirect to="/" />
-    
+
     return (
         <>
             <Header />
@@ -27,25 +22,23 @@ const UsersList: React.FC = () => {
                 <Sidebar activeTab="users" />
                 <div className="content">
                     <h1>
-                        <b>Usuários</b> - Listagem
+                        <b>Usuários</b> - Aprovações Pendentes
                     </h1>
                     <Table
                         columns={[
                             {title: "#", field: "id", width: "80px"},
                             {title: "Nome", field: "name"},
                             {title: "E-mail", field: "email"},
-                            {title: "Tipo", field: "type", render: (item: IUserListItem) => item.type === "admin" ? "Admin" : "Profissional", width: "150px"},
-                            {title: "Ativo", field: "active", render: (item: IUserListItem) => item.active ? "Ativo" : "Inativo", width: "150px"},
                             {title: "",width: "204px", render: () => (
                                 <div className="buttons">
-                                    <SmallButton>Editar</SmallButton>
-                                    <SmallButton buttonStyle="secondary">Deletar</SmallButton>
+                                    <SmallButton>Aprovar</SmallButton>
+                                    <SmallButton buttonStyle="secondary">Recusar</SmallButton>
                                 </div>
                             )},
                         ]}
                         data={[
-                            {id: 1, name: "Teste 1", email: "teste@teste.com", type: "employee", active: false},
-                            {id: 2, name: "Teste 2", email: "teste@teste.com", type: "admin", active: true},
+                            {id: 1, name: "Teste 1", email: "teste@teste.com"},
+                            {id: 2, name: "Teste 2", email: "teste@teste.com"},
                         ]}
                     ></Table>
                 </div>
@@ -53,4 +46,4 @@ const UsersList: React.FC = () => {
         </>
     );
 }
-export default UsersList;
+export default ApproveUsers;
