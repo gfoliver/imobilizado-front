@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { parse } from 'qs';
 
@@ -8,11 +8,18 @@ import { Card } from '../../../styles/Global';
 import { Form } from '@unform/web';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
+import api from '../../../services/api';
+import { useAuth } from '../../../context/Auth';
+import { useToasts } from 'react-toast-notifications';
+import { FormHandles } from '@unform/core';
 
 const UnitiesForm: React.FC = () => {
     const location = useLocation();
     const [edit, setEdit] = useState(false);
     const [id, setId] = useState<string | null>(null);
+    const { token } = useAuth();
+    const { addToast } = useToasts();
+    const formRef = useRef<FormHandles>(null);
 
     useEffect(() => {
         const query = parse(location.search.split('?')[1]);
@@ -23,8 +30,11 @@ const UnitiesForm: React.FC = () => {
     }, [location]);
 
     const handleSubmit = useCallback(data => {
-        console.log(data);
-    }, []);
+        api(token).post('/unity', data)
+            .then(() => addToast('Unidade adicionada com sucesso!', {appearance: 'success'}))
+            .catch(() => addToast('Erro ao adicionar a unidade, tente novamente mais tarde', {appearance: 'error'}))
+            .finally(() => formRef.current?.reset());
+    }, [token]);
 
     return (
         <>
@@ -36,7 +46,7 @@ const UnitiesForm: React.FC = () => {
                         <b>Unidades</b> - {edit ? `Editar #${id}` : 'Adicionar Nova'}
                     </h1>
                     <Card>
-                        <Form onSubmit={handleSubmit}>
+                        <Form ref={formRef} onSubmit={handleSubmit}>
                             <div className="item">
                                 <label htmlFor="save-unity-name">Nome</label>
                                 <Input name="name" id="save-unity-name" required />

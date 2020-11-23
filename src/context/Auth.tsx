@@ -15,6 +15,7 @@ interface IAuthContext {
         email: string;
         type: "admin" | "employee";
     };
+    token: string;
 }
 
 interface LoginResponse {
@@ -53,7 +54,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
 
     const login = useCallback(async ({ email, password }: LoginDTO) => {
-        const response = await api.post<LoginResponse>('/user/login', { email, password });
+        const response = await api().post<LoginResponse>('/user/login', { email, password });
         
         const { token, user } = response.data.data;
 
@@ -71,7 +72,7 @@ const AuthProvider: React.FC = ({ children }) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ login, logout, user: data.user }}>
+        <AuthContext.Provider value={{ login, logout, user: data.user, token: data.token }}>
             {children}
         </AuthContext.Provider>
     )

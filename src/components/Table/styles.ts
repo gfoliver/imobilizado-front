@@ -67,5 +67,9 @@ export const Container = styled.div`
                 margin-left: 16px;
             }
         }
+
+        .emptyMessage {
+            color: ${props => props.theme.colors.text};
+        }
     }
 `;

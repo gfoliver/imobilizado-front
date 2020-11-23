@@ -1,25 +1,46 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 
 import Header from '../../../components/Header';
 import Sidebar from '../../../components/Sidebar';
 import SmallButton from '../../../components/SmallButton';
 import Table from '../../../components/Table';
 import { useAuth } from '../../../context/Auth';
+import api from '../../../services/api';
 
 // import {  } from './styles';
 
 interface IUserListItem extends Object {
     type: string;
     active: boolean;
+    id: number;
 }
 
 const UsersList: React.FC = () => {
-    const { user } = useAuth();
+    const { user, token } = useAuth();
+    const [users, setUsers] = useState<IUserListItem[]>([]);
+    const history = useHistory();
+
+    useEffect(() => {
+        api(token).get('/user').then(response => {
+            setUsers(response.data.data);
+        }).catch(err => console.log(err));
+    }, [token]);
 
     if (user.type !== "admin")
         return <Redirect to="/" />
-    
+
+    const deleteUser = (id: number) => {
+        const canDelete = window.confirm('Deseja deletar o usuário #' + id + '?');
+
+        if (!canDelete)
+            return;
+
+        api(token).delete('/user/' + id).then(() => {
+            setUsers(users.filter(user => user.id !== id));
+        }).catch(e => console.log(e));
+    }
+
     return (
         <>
             <Header />
@@ -36,17 +57,14 @@ const UsersList: React.FC = () => {
                             {title: "E-mail", field: "email"},
                             {title: "Tipo", field: "type", render: (item: IUserListItem) => item.type === "admin" ? "Admin" : "Profissional", width: "150px"},
                             {title: "Ativo", field: "active", render: (item: IUserListItem) => item.active ? "Ativo" : "Inativo", width: "150px"},
-                            {title: "",width: "204px", render: () => (
+                            {title: "",width: "204px", render: (item: IUserListItem) => (
                                 <div className="buttons">
-                                    <SmallButton>Editar</SmallButton>
-                                    <SmallButton buttonStyle="secondary">Deletar</SmallButton>
+                                    <SmallButton onClick={() => history.push('/usuarios/salvar?id=' + item.id)}>Editar</SmallButton>
+                                    <SmallButton onClick={() => deleteUser(item.id)} buttonStyle="secondary">Deletar</SmallButton>
                                 </div>
                             )},
                         ]}
-                        data={[
-                            {id: 1, name: "Teste 1", email: "teste@teste.com", type: "employee", active: false},
-                            {id: 2, name: "Teste 2", email: "teste@teste.com", type: "admin", active: true},
-                        ]}
+                        data={users}
                     ></Table>
                 </div>
             </main>

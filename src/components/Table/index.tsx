@@ -30,6 +30,11 @@ const Table: React.FC<MaterialTableProps<any>> = ({...props}) => {
             <MaterialTable 
                 icons={tableIcons as Icons} 
                 options={{ draggable: false, pageSizeOptions: [7,15,30,50,100], pageSize: 7 }} 
+                localization={{
+                    body: {
+                        emptyDataSourceMessage: <p className="emptyMessage">Nenhum registro encontrado.</p>
+                    }
+                }}
                 components={{
                     Toolbar: () => <div />
                 }} 

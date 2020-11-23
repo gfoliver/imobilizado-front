@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { parse } from 'qs';
 
@@ -9,11 +9,24 @@ import { Form } from '@unform/web';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import Select from '../../../components/Select';
+import api from '../../../services/api';
+import { useAuth } from '../../../context/Auth';
+import { useToasts } from 'react-toast-notifications';
+import { FormHandles } from '@unform/core';
+
+interface IUnity {
+    id: number;
+    name: string;
+}
 
 const AreasForm: React.FC = () => {
     const location = useLocation();
     const [edit, setEdit] = useState(false);
     const [id, setId] = useState<string | null>(null);
+    const { token } = useAuth();
+    const { addToast } = useToasts();
+    const [unities, setUnities] = useState<IUnity[]>([]);
+    const formRef = useRef<FormHandles>(null);
 
     useEffect(() => {
         const query = parse(location.search.split('?')[1]);
@@ -23,9 +36,24 @@ const AreasForm: React.FC = () => {
         }
     }, [location]);
 
+    useEffect(() => {
+        api(token)
+            .get('/unity')
+            .then(response => setUnities(response.data.data.map((unity: IUnity) => ({value: unity.id, label: unity.name}))))
+            .catch(error => console.log(error));
+    }, [token]);
+
     const handleSubmit = useCallback(data => {
-        console.log(data);
-    }, []);
+        api(token)
+            .post('/area', data)
+            .then(response => {
+                addToast('Area adicionada com sucesso!', {appearance: 'success'})
+            })
+            .catch(error => {
+                addToast('Erro ao adicionar a area, tente novamente mais tarde.', {appearance: 'error'});
+            })
+            .finally(() => formRef.current?.reset());
+    }, [token, addToast]);
 
     return (
         <>
@@ -37,18 +65,14 @@ const AreasForm: React.FC = () => {
                         <b>Areas</b> - {edit ? `Editar #${id}` : 'Adicionar Nova'}
                     </h1>
                     <Card>
-                        <Form onSubmit={handleSubmit}>
+                        <Form ref={formRef} onSubmit={handleSubmit}>
                             <div className="item">
                                 <label htmlFor="save-area-name">Nome</label>
                                 <Input name="name" id="save-area-name" required />
                             </div>
                             <div className="item">
                                 <label htmlFor="save-area-unity">Unidade</label>
-                                <Select name="unity" id="save-area-unity" required options={[
-                                    {value: '1', label: 'Teste'},
-                                    {value: '2', label: 'Teste 2'},
-                                    {value: '3', label: 'Teste 3'},
-                                ]} />
+                                <Select name="unity_id" id="save-area-unity" required options={unities} />
                             </div>
                         
                             <Button type="submit">Cadastrar</Button>
