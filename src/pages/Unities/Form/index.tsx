@@ -34,7 +34,7 @@ const UnitiesForm: React.FC = () => {
             .then(() => addToast('Unidade adicionada com sucesso!', {appearance: 'success'}))
             .catch(() => addToast('Erro ao adicionar a unidade, tente novamente mais tarde', {appearance: 'error'}))
             .finally(() => formRef.current?.reset());
-    }, [token]);
+    }, [token, addToast]);
 
     return (
         <>

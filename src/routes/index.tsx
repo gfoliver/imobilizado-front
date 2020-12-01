@@ -14,6 +14,7 @@ import AreasForm from '../pages/Areas/Form';
 import UnitiesList from '../pages/Unities/List';
 import UnitiesForm from '../pages/Unities/Form';
 import ProductsForm from '../pages/Products/Form';
+import ProductsList from '../pages/Products/List';
 
 const Router: React.FC = () => {
     return (
@@ -31,6 +32,7 @@ const Router: React.FC = () => {
                 <Route path="/unidades" exact isPrivate component={UnitiesList} />
                 <Route path="/unidades/salvar" exact isPrivate component={UnitiesForm} />
 
+                <Route path="/imobilizados" exact isPrivate component={ProductsList} />
                 <Route path="/imobilizados/salvar" exact isPrivate component={ProductsForm} />
 
                 <Route path="/login" component={Login} />

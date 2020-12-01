@@ -10,7 +10,7 @@ interface SelectProps extends Props<OptionTypeBase> {
 const Select: React.FC<SelectProps> = ({ name, options, ...rest }) => {
     const theme = useTheme();
     const selectRef = useRef(null);
-    const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
+    const { fieldName, registerField, defaultValue } = useField(name);
 
     useEffect(() => {
         registerField({
