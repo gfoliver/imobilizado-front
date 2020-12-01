@@ -37,7 +37,7 @@ const Register: React.FC = () => {
                 abortEarly: false
             });
             
-            const response = await api().post('/user', data);
+            const response = await api().post('/user', {...data, type:"employee"});
 
             if (response.data.status)
                 setSuccess(true);
