@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { FiUser, FiLogOut } from 'react-icons/fi';
 
 import { useAuth } from '../../context/Auth';
@@ -9,13 +9,18 @@ import SmallButton from '../SmallButton';
 
 const Header: React.FC = () => {
     const { user } = useAuth();
+    const history = useHistory();
+
+    const navigateToInventory = useCallback(() => {
+        history.push('/inventario');
+    }, [history]);
 
     return (
         <Container>
             <Link to="/" className="logo">imobilizado</Link>
             {user ? (
                 <div className="user">
-                    <SmallButton>Realizar Inventário</SmallButton>
+                    <SmallButton onClick={navigateToInventory}>Realizar Inventário</SmallButton>
                     <FiUser />
                     <div className="name">{user.name}</div>
                     <Link to="/sair">

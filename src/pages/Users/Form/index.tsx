@@ -52,7 +52,7 @@ const UsersForm: React.FC = () => {
     }, [location, fetchUserData]);
 
     const handleSubmit = useCallback(data => {
-        api(token).post('/user', data).then(response => {
+        api(token).post('/user', {...data, type}).then(() => {
             addToast('Usuário adicionado com sucesso!', {
                 appearance: 'success'
             });
@@ -63,7 +63,7 @@ const UsersForm: React.FC = () => {
         }).finally(() => {
             formRef.current?.reset();
         });
-    }, [token, addToast]);
+    }, [token, addToast, type]);
 
     if (user.type !== "admin")
         return <Redirect to="/" />

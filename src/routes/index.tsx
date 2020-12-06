@@ -15,6 +15,8 @@ import UnitiesList from '../pages/Unities/List';
 import UnitiesForm from '../pages/Unities/Form';
 import ProductsForm from '../pages/Products/Form';
 import ProductsList from '../pages/Products/List';
+import Inventory from '../pages/Inventory';
+import FinishInventory from '../pages/Inventory/Finish';
 
 const Router: React.FC = () => {
     return (
@@ -34,6 +36,9 @@ const Router: React.FC = () => {
 
                 <Route path="/imobilizados" exact isPrivate component={ProductsList} />
                 <Route path="/imobilizados/salvar" exact isPrivate component={ProductsForm} />
+
+                <Route path="/inventario" exact isPrivate component={Inventory} />
+                <Route path="/inventario/salvar" isPrivate component={FinishInventory} />
 
                 <Route path="/login" component={Login} />
                 <Route path="/cadastro" component={Register} />

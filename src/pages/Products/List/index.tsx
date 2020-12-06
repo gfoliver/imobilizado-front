@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Header from '../../../components/Header';
 import ProductItem from '../../../components/ProductItem';
@@ -9,7 +9,7 @@ import api from '../../../services/api';
 import { ProductsWrapper } from './styles';
 
 interface IProduct {
-    id: number;
+    code: string;
     image?: string;
     name: string;
     area_id: number;
@@ -28,6 +28,15 @@ const ProductsList: React.FC = () => {
             .catch(err => console.log(err));
     }, [token]);
 
+    const handleDelete = useCallback((code: string) => {
+        const canDelete = window.confirm('Deseja deletar o imobilizado #' + code + '?');
+
+        if (!canDelete)
+            return;
+
+        api(token).delete(`/product/delete/${code}`).then(() => setProducts(products => products.filter(p => p.code !== code)));
+    }, [token]);
+
     return (
         <>
             <Header />
@@ -38,14 +47,17 @@ const ProductsList: React.FC = () => {
                         <b>Imobilizados</b> - Listagem
                     </h1>
                     <ProductsWrapper>
-                        {products.map(({ id, amount, name, area_id, value, image }) => (
+                        {products.map(({ code, amount, name, area_id, value, image }) => (
                             <ProductItem 
-                                key={id}
+                                key={code}
+                                code={code}
                                 amount={amount} 
                                 area={String(area_id)} 
                                 title={name}
                                 value={value}
                                 image={image}
+                                onDelete={() => handleDelete(code)}
+                                onSelect={() => {}}
                             />
                         ))}
                     </ProductsWrapper>

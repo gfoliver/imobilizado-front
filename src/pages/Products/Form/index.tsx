@@ -23,7 +23,7 @@ interface IArea {
 const ProductsForm: React.FC = () => {
     const location = useLocation();
     const [edit, setEdit] = useState(false);
-    const [id, setId] = useState<string | null>(null);
+    const [code, setCode] = useState<string | null>(null);
     const [file, setFile] = useState<File | null>(null);
     const { token } = useAuth();
     const { addToast } = useToasts();
@@ -31,9 +31,9 @@ const ProductsForm: React.FC = () => {
 
     useEffect(() => {
         const query = parse(location.search.split('?')[1]);
-        if (query.id) {
+        if (query.code) {
             setEdit(true);
-            setId(String(query.id));
+            setCode(String(query.code));
         }
     }, [location]);
 
@@ -73,7 +73,7 @@ const ProductsForm: React.FC = () => {
                 <Sidebar activeTab="products" />
                 <div className="content">
                     <h1>
-                        <b>Produtos</b> - {edit ? `Editar #${id}` : 'Adicionar Novo'}
+                        <b>Produtos</b> - {edit ? `Editar #${code}` : 'Adicionar Novo'}
                     </h1>
                     <Card>
                         <Form onSubmit={handleSubmit}>

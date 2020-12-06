@@ -81,3 +81,48 @@ export const Image = styled.img`
     object-fit: cover;
     object-position: center;
 `;
+
+export const ConfirmContainer = styled.div`
+    display: flex;
+    align-items: center;
+    margin-top: 32px;
+
+    .checkbox-wrapper {
+        margin-left: 16px;
+        display: block;
+        margin-bottom: 0;
+
+        input {
+            display: none;
+        }
+
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            background-color: ${props => props.theme.colors.inputBorder};
+            border: 1px solid ${props => props.theme.colors.cardBorder};
+            transition: all .3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin: 0;
+
+            svg {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        input:checked + .custom-checkbox {
+            background-color: ${props => props.theme.colors.primary};
+            border-color: ${props => props.theme.colors.primary};
+
+            svg {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+`;
