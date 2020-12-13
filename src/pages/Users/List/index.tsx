@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Header from '../../../components/Header';
 import Sidebar from '../../../components/Sidebar';
@@ -19,7 +19,6 @@ interface IUserListItem extends Object {
 const UsersList: React.FC = () => {
     const { user, token } = useAuth();
     const [users, setUsers] = useState<IUserListItem[]>([]);
-    const history = useHistory();
 
     useEffect(() => {
         api(token).get('/user').then(response => {
@@ -59,7 +58,6 @@ const UsersList: React.FC = () => {
                             {title: "Ativo", field: "active", render: (item: IUserListItem) => item.active ? "Ativo" : "Inativo", width: "150px"},
                             {title: "",width: "204px", render: (item: IUserListItem) => (
                                 <div className="buttons">
-                                    <SmallButton onClick={() => history.push('/usuarios/salvar?id=' + item.id)}>Editar</SmallButton>
                                     <SmallButton onClick={() => deleteUser(item.id)} buttonStyle="secondary">Deletar</SmallButton>
                                 </div>
                             )},

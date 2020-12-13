@@ -1,6 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { FiTrash2, FiEdit, FiCheck } from 'react-icons/fi';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { FiTrash2, FiCheck } from 'react-icons/fi';
 
 import { Container, Content, Image, ConfirmContainer } from './styles';
 
@@ -18,12 +17,7 @@ interface ProductItemProps {
 }
 
 const ProductItem: React.FC<ProductItemProps> = ({ onSelect, ...props}) => {
-    const history = useHistory();
     const [checked, setChecked] = useState(false);
-
-    const navigateToEdit = useCallback(() => {
-        history.push(`/imobilizados/salvar/?code=${props.code}`);
-    }, [history, props.code]);
 
     return (
         <Container>
@@ -39,9 +33,6 @@ const ProductItem: React.FC<ProductItemProps> = ({ onSelect, ...props}) => {
                 </div>
                 {!props.hideButtons && (
                     <div className="buttons">
-                        <button className="primary">
-                            <FiEdit onClick={navigateToEdit} />
-                        </button>
                         <button className="secondary">
                             <FiTrash2 onClick={props.onDelete} />
                         </button>

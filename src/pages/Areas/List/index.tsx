@@ -51,7 +51,6 @@ const AreasList: React.FC = () => {
                             {title: "Unidade", field: "unity_id"},
                             {title: "",width: "204px", render: (item) => (
                                 <div className="buttons">
-                                    <SmallButton>Editar</SmallButton>
                                     <SmallButton onClick={() => deleteArea(item.id)} buttonStyle="secondary">Deletar</SmallButton>
                                 </div>
                             )},

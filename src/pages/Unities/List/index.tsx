@@ -49,7 +49,6 @@ const UnitiesList: React.FC = () => {
                             {title: "Nome", field: "name"},
                             {title: "",width: "204px", render: (item) => (
                                 <div className="buttons">
-                                    <SmallButton>Editar</SmallButton>
                                     <SmallButton onClick={() => deleteUnity(item.id)} buttonStyle="secondary">Deletar</SmallButton>
                                 </div>
                             )},
